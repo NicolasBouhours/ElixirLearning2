@@ -13,13 +13,13 @@ defmodule Identicon do
     hex
     |> Enum.chunk(3)
     |> Enum.map(&mirror_row/1)
+    |> List.flatten
+    |> Enum.with_index
   end
 
   def mirror_row(row) do
-    # [145, 46, 200]
     [first, second | _tail] = row
     row ++ [second, first]
-    # [145, 46, 200, 46, 145]
   end
 
   def pick_color(%Identicon.Image{hex: [r, g, b | _tail]} = image) do
